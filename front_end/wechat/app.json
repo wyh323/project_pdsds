@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/register/register",
+    "pages/forgot-password/forgot-password",
+    "pages/home/home",
+    "pages/questionnaire/questionnaire",
+    "pages/chat/chat",
+    "pages/my/my"
+  ],
+  "window": {
+    "navigationBarTitleText": "心理辅助诊疗系统（患者）",
+    "navigationBarBackgroundColor": "#2b4b6b",
+    "navigationBarTextStyle":"white",
+    "enablePullDownRefresh": false,
+    "backgroundColor": "#00FFFF",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "selectedColor": "#b4282d",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_select.png"
+      },
+      {
+        "pagePath": "pages/questionnaire/questionnaire",
+        "text": "测评",
+        "iconPath": "images/questionnaire.png",
+        "selectedIconPath": "images/questionnaire_select.png"
+      },
+      {
+        "pagePath": "pages/chat/chat",
+        "text": "沟通",
+        "iconPath": "images/chat.png",
+        "selectedIconPath": "images/chat_select.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/my.png",
+        "selectedIconPath": "images/my_select.png"
+      }
+    ]
+  }
+}

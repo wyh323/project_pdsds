@@ -1,0 +1,31 @@
+<!--pages/register/register.wxml-->
+<view class="container">
+  <!-- 用户名输入框 -->
+  <view class="input-group">
+    <text class="label">用户名：</text>
+    <input 
+      class="input" 
+      type="text" 
+      placeholder="请输入用户名" 
+      bindinput="onUsernameInput"
+    />
+  </view>
+
+  <!-- 密码输入框 -->
+  <view class="input-group">
+    <text class="label">密码：</text>
+    <input 
+      class="input" 
+      password 
+      placeholder="请输入密码" 
+      bindinput="onPasswordInput"
+    />
+  </view>
+
+  <!-- 注册按钮 -->
+  <button 
+    class="btn-login" 
+    type="primary" 
+    bindtap="onRegister"
+  >注册</button>
+</view>

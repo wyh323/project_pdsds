@@ -1,0 +1,41 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+  <!-- 用户名输入框 -->
+  <view class="input-group">
+    <text class="label">用户名：</text>
+    <input 
+      class="input" 
+      type="text" 
+      placeholder="请输入用户名" 
+      bindinput="onUsernameInput"
+    />
+  </view>
+
+  <!-- 密码输入框 -->
+  <view class="input-group">
+    <text class="label">密码：</text>
+    <input 
+      class="input" 
+      password 
+      placeholder="请输入密码" 
+      bindinput="onPasswordInput"
+    />
+  </view>
+
+  <!-- 登录按钮 -->
+  <button 
+    class="btn-login" 
+    type="primary" 
+    bindtap="onLogin"
+  >登录</button>
+
+  <!-- 辅助功能按钮容器 -->
+  <view class="action-container">
+    <!-- 注册按钮 -->
+    <text class="action-text" bindtap="onRegister">立即注册</text>
+    <!-- 分隔线 -->
+    <text class="divider">|</text>
+    <!-- 忘记密码按钮 -->
+    <text class="action-text" bindtap="onForgotPassword">忘记密码？</text>
+  </view>
+</view>
