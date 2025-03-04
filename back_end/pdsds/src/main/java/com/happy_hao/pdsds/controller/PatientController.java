@@ -22,8 +22,9 @@ public class PatientController {
     @PostMapping("/register")
     public Result register(@Valid @RequestBody PatientRegister req) {
 
-        Patient p = patientService.register(req);
+        patientService.register(req);
 
+        return Result.success();
     }
 
     @PostMapping("/login")
@@ -32,7 +33,6 @@ public class PatientController {
         Patient p = patientService.login(req);
 
         return Result.success(p.getToken());
-
     }
 
 }

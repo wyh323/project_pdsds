@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.happy_hao.pdsds.common.Result;
 import com.happy_hao.pdsds.dto.PatientLogin;
 import com.happy_hao.pdsds.dto.PatientRegister;
 import com.happy_hao.pdsds.entity.Patient;
@@ -31,16 +29,12 @@ public class PatientServiceImpl implements PatientService {
     public void register(PatientRegister req) {
         String username = req.getUsername();
         String password = req.getPassword();
+
         // 查询病人是否存在
-        Patient p = patientService.findByUsername(username);
-        if (p == null) {
-            // 没有占用
-            // 注册
-            patientService.register(username, password);
-            return Result.success();
-        } else {
+        Patient p = patientMapper.findByUsername(username);
+        if (p != null) {
             // 占用
-            return Result.error("用户名已被占用");
+            throw new ServiceException("用户名已被注册");
         }
 
         // 加密
