@@ -48,7 +48,7 @@ Page({
       header: { 'content-type': 'application/json' },
       success: (res) => {
         console.log('注册响应:', res.data);
-        if (res.data.code === 200) {
+        if (res.data.code == 200) {
           wx.setStorageSync('token', res.data.data);
           wx.showToast({
             title: '注册成功',

@@ -36,7 +36,7 @@ Page({
       },
       success: (res) => {
         console.log('登录响应:', res.data);
-        if (res.data.code === 200) {
+        if (res.data.code == 200) {
           const token = res.data.data;
           wx.setStorageSync('token', token);
           wx.showToast({
