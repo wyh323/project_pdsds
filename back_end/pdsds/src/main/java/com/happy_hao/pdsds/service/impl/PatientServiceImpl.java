@@ -64,9 +64,8 @@ public class PatientServiceImpl implements PatientService {
 
         // JWT令牌
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", p.getId());
         claims.put("username", p.getUsername());
-        String jString = JwtUtil.genToken(claims);
+        String jString = JwtUtil.generateToken(claims);
         p.setToken(jString);
 
         return p;
