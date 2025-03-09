@@ -23,26 +23,26 @@
       {
         "pagePath": "pages/home/home",
         "text": "首页",
-        "iconPath": "images/home.png",
-        "selectedIconPath": "images/home_select.png"
+        "iconPath": "images/tabs/home.png",
+        "selectedIconPath": "images/tabs/home_select.png"
       },
       {
         "pagePath": "pages/questionnaire/questionnaire",
         "text": "测评",
-        "iconPath": "images/questionnaire.png",
-        "selectedIconPath": "images/questionnaire_select.png"
+        "iconPath": "images/tabs/questionnaire.png",
+        "selectedIconPath": "images/tabs/questionnaire_select.png"
       },
       {
         "pagePath": "pages/chat/chat",
         "text": "沟通",
-        "iconPath": "images/chat.png",
-        "selectedIconPath": "images/chat_select.png"
+        "iconPath": "images/tabs/chat.png",
+        "selectedIconPath": "images/tabs/chat_select.png"
       },
       {
         "pagePath": "pages/my/my",
         "text": "我的",
-        "iconPath": "images/my.png",
-        "selectedIconPath": "images/my_select.png"
+        "iconPath": "images/tabs/my.png",
+        "selectedIconPath": "images/tabs/my_select.png"
       }
     ]
   }

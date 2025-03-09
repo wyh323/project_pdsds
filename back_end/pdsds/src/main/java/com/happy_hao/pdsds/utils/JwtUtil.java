@@ -4,7 +4,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
+import io.jsonwebtoken.security.WeakKeyException;
+
 import java.io.InputStream;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
@@ -48,9 +52,23 @@ public class JwtUtil {
                     .verifyWith(key) // 使用静态密钥对象
                     .build()
                     .parseSignedClaims(token);
-            return claimsJws.getPayload();
+            // 获取 Claims
+            Claims claims = claimsJws.getPayload();
+
+            // 验证过期时间
+            Instant expiration = Instant.ofEpochSecond(claims.getExpiration().getTime() / 1000L);
+            if (Instant.now().isAfter(expiration)) {
+                throw new RuntimeException("JWT token has expired");
+            }
+
+            return claims;
+        } catch (SignatureException e) {
+            throw new RuntimeException("Invalid JWT signature", e);
+        } catch (WeakKeyException e) {
+            throw new RuntimeException("Weak key used for JWT verification", e);
         } catch (Exception e) {
             throw new RuntimeException("Invalid JWT token", e);
         }
     }
+
 }

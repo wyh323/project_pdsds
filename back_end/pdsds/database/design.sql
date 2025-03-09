@@ -136,3 +136,8 @@ create table mail(
     token int unsigned comment '邮箱验证码',
     createTime datetime not null comment '创建时间'
 )comment '邮箱验证';
+
+create table slides(
+    id int unsigned primary key auto_increment comment 'ID',
+    url varchar(256) default '' comment '图像地址'
+)comment '首页轮播图';

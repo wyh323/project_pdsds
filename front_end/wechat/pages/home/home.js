@@ -18,11 +18,19 @@ Page({
 
   //获取轮播图数据的方法
   getSwiperList() {
+    const token = wx.getStorageSync('token');
     wx.request({
-      url: 'url',
+      url: 'http://localhost:8080/home/slides',
       method: 'GET',
+      header: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${token}` // 将JWT令牌添加到请求头
+      },
       success: (res) => {
         console.log(res)
+        this.setData({
+          swiperList: res.data.data
+        })
       }
     })
   },
