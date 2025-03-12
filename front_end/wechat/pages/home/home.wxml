@@ -5,3 +5,34 @@
     <image src="{{item.url}}"></image>
   </swiper-item>
 </swiper>
+
+<!--消息推送区域-->
+<van-cell-group inset="true">
+  <van-cell title="PDSDS" value="宣传" />
+  <image src="/images/头像.png" class="pic"></image>
+  <van-cell label="兰刚太帅了" />
+</van-cell-group>
+
+<van-cell-group inset>
+  <van-cell title="PDSDS" value="宣传" />
+  <image src="/images/头像.png" class="pic"></image>
+  <van-cell label="兰刚太帅了" />
+</van-cell-group>
+
+<van-cell-group inset>
+  <van-cell title="PDSDS" value="宣传" />
+  <image src="/images/头像.png" class="pic"></image>
+  <van-cell label="兰刚太帅了" />
+</van-cell-group>
+
+<van-cell-group inset>
+  <van-cell title="PDSDS" value="宣传" />
+  <image src="/images/头像.png" class="pic"></image>
+  <van-cell label="兰刚太帅了" />
+</van-cell-group>
+
+<van-cell-group inset>
+  <van-cell title="PDSDS" value="宣传" />
+  <image src="/images/头像.png" class="pic"></image>
+  <van-cell label="兰刚太帅了" />
+</van-cell-group>

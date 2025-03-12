@@ -45,5 +45,9 @@
         "selectedIconPath": "images/tabs/my_select.png"
       }
     ]
+  },
+  "usingComponents": {
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index"
   }
 }
