@@ -1,7 +1,9 @@
 package com.happy_hao.pdsds.service;
 
+import com.happy_hao.pdsds.common.Result;
 import com.happy_hao.pdsds.dto.PatientLogin;
 import com.happy_hao.pdsds.dto.PatientRegister;
+import com.happy_hao.pdsds.dto.UpdatePwdRequest;
 import com.happy_hao.pdsds.entity.Patient;
 
 public interface PatientService {
@@ -13,5 +15,7 @@ public interface PatientService {
 
     // 登录
     Patient login(PatientLogin req);
+
+    Result updatePwd(UpdatePwdRequest updatePwdRequest);
 
 }

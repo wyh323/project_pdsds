@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.happy_hao.pdsds.common.Result;
 import com.happy_hao.pdsds.dto.PatientLogin;
 import com.happy_hao.pdsds.dto.PatientRegister;
+import com.happy_hao.pdsds.dto.UpdatePwdRequest;
 import com.happy_hao.pdsds.entity.Patient;
 import com.happy_hao.pdsds.service.PatientService;
 import jakarta.validation.Valid;
@@ -33,6 +34,11 @@ public class PatientController {
         Patient p = patientService.login(req);
 
         return Result.success(p.getToken());
+    }
+
+    @PostMapping("/updatePwd")
+    public Result updatePwd(@Valid @RequestBody UpdatePwdRequest updatePwdRequest) {
+        return patientService.updatePwd(updatePwdRequest);
     }
 
 }

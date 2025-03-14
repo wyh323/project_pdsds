@@ -1,2 +1,29 @@
 <!--pages/questionnaire/questionnaire.wxml-->
-<text>pages/questionnaire/questionnaire.wxml</text>
+<van-cell-group title=" ">
+  <van-cell
+  is-link
+  title="sds抑郁自评量表"
+  link-type="navigateTo"
+  url="/pages/dashboard/index"
+  />
+  <van-cell
+  is-link
+  title="ces_d流调用抑郁自评量表"
+  link-type="navigateTo"
+  url="/pages/dashboard/index"
+  />
+  <van-cell
+  is-link
+  title="madrs蒙哥马利抑郁评定量表"
+  link-type="navigateTo"
+  url="/pages/dashboard/index"
+  />
+</van-cell-group>
+<van-cell-group title="   ">
+  <van-cell
+  is-link
+  title="医嘱"
+  link-type="navigateTo"
+  url="/pages/dashboard/index"
+  />
+</van-cell-group>
