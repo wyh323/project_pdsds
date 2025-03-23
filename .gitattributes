@@ -1,2 +1,33 @@
-/mvnw text eol=lf
-*.cmd text eol=crlf
+# 默认换行符处理
+* text=auto eol=lf
+
+# 忽略二进制文件的换行符差异
+*.png binary
+*.jpg binary
+*.zip binary
+*.ico binary
+
+# 前端文件
+*.vue text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.less text eol=lf
+*.html text eol=lf
+*.json text eol=lf
+
+# 后端文件
+*.java text eol=lf
+*.properties text eol=lf
+*.yml text eol=lf
+
+# 其他文本文件
+*.txt text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
+*.bat text eol=lf
+
+# 忽略特定文件的差异
+*.log diff=ignore
+*.bak diff=ignore
