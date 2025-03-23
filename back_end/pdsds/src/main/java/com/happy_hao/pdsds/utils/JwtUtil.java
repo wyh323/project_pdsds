@@ -3,22 +3,32 @@ package com.happy_hao.pdsds.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import io.jsonwebtoken.security.WeakKeyException;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
 import javax.crypto.SecretKey;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.happy_hao.pdsds.config.JwtConfig;
 
 @Component
 public class JwtUtil {
 
-    private static long jwtExpiration = JwtConfig.getExpirationTime();
-    private static SecretKey key = JwtConfig.getSecretKey(); // 保存密钥对象
+    private final long jwtExpiration;
+    private final SecretKey key;
 
-    public static String generateToken(Map<String, Object> claims) {
+    // 使用构造函数注入
+    @Autowired
+    public JwtUtil(JwtConfig jwtConfig) {
+        this.jwtExpiration = jwtConfig.getExpirationTime();
+        this.key = Keys.hmacShaKeyFor(jwtConfig.getSecretKey().getBytes());
+    }
+
+    public String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .claims().empty().add(claims).and()
                 .issuedAt(new Date())
@@ -27,7 +37,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public static Claims extractClaims(String token) {
+    public Claims extractClaims(String token) {
         try {
             Jws<Claims> claimsJws = Jwts.parser()
                     .verifyWith(key) // 使用静态密钥对象

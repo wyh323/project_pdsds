@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Random;
 
 @Service
@@ -63,7 +62,7 @@ public class MailServiceImpl implements EmailService {
             mailMapper.add(email, verifyCode);
         } else {
             // 如果验证码已存在，检查是否过期
-            if (LocalDateTime.now().isAfter(mail.getCreateTime().plus(overtime, ChronoUnit.MINUTES))) {
+            if (LocalDateTime.now().isAfter(mail.getCreateTime().plusMinutes(overtime))) {
                 // 生成新的验证码
                 String verifyCode = String.valueOf(new Random().nextInt(899999) + 100000);
                 mailMapper.add(email, verifyCode);
@@ -93,7 +92,7 @@ public class MailServiceImpl implements EmailService {
             mimeMessageHelper.setText(stringBuilder.toString(), true);
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
-            e.printStackTrace();
+            throw new ServiceException(e.getMessage());
         }
         return Result.success("获取验证码成功，请查看移步您的邮箱" + email + "查看验证码！");
     }

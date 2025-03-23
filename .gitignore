@@ -33,3 +33,4 @@ build/
 
 ###spring boot###
 **/*.properties
+**/*.yml

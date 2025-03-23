@@ -8,7 +8,7 @@ import com.happy_hao.pdsds.entity.Patient;
 
 public interface PatientService {
     // 根据用户名查询用户
-    Patient findByUsername(String username);
+    // Patient findByUsername(String username);
 
     // 注册
     void register(PatientRegister req);

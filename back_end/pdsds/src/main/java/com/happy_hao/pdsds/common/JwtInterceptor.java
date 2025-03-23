@@ -7,6 +7,7 @@ import com.happy_hao.pdsds.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -15,9 +16,12 @@ public class JwtInterceptor implements HandlerInterceptor {
     @Autowired
     private PatientMapper patientMapper;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @Override
-    public boolean preHandle(@SuppressWarnings("null") HttpServletRequest request,
-            @SuppressWarnings("null") HttpServletResponse response, @SuppressWarnings("null") Object handler) {
+    public boolean preHandle(HttpServletRequest request,
+                             @NonNull HttpServletResponse response, @NonNull Object handler) {
 
         // 获取JWT令牌
         String authHeader = request.getHeader("Authorization");
@@ -33,7 +37,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         // 拦截签名不正确的请求
         String patientName;
         try {
-            patientName = JwtUtil.extractClaims(authHeader).get("username", String.class);
+            patientName = jwtUtil.extractClaims(authHeader).get("username", String.class);
         } catch (Exception e) {
             throw new ServiceException("401", "请登录2");
         }

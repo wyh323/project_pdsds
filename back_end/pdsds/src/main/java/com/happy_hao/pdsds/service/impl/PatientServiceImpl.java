@@ -3,7 +3,6 @@ package com.happy_hao.pdsds.service.impl;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +33,8 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private MailConfig mailConfig;
 
-    @Override
-    public Patient findByUsername(String username) {
-        Patient p = patientMapper.findByUsername(username);
-        return p;
-    }
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
     public void register(PatientRegister req) {
@@ -80,7 +76,7 @@ public class PatientServiceImpl implements PatientService {
         // JWT令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", p.getUsername());
-        String jString = JwtUtil.generateToken(claims);
+        String jString = jwtUtil.generateToken(claims);
         p.setToken(jString);
 
         return p;
@@ -104,7 +100,7 @@ public class PatientServiceImpl implements PatientService {
         Mail mail = mailMapper.findByEmail(email);
         Integer overtime = mailConfig.getOvertime(); // 过期时间
         // 验证码过期校验
-        if (LocalDateTime.now().isAfter(mail.getCreateTime().plus(overtime, ChronoUnit.MINUTES))) {
+        if (LocalDateTime.now().isAfter(mail.getCreateTime().plusMinutes(overtime))) {
             throw new ServiceException("验证码已过期");
         }
         // 验证码正确性校验

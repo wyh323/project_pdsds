@@ -24,15 +24,7 @@ public class Result {
         return new Result(CODE_SUCCESS, "请求成功", data);
     }
 
-    public static Result error(String message) {
-        return new Result(CODE_SYS_ERROR, message, null);
-    }
-
     public static Result error(String code, String message) {
         return new Result(code, message, null);
-    }
-
-    public static Result error() {
-        return new Result(CODE_SYS_ERROR, "系统错误", null);
     }
 }

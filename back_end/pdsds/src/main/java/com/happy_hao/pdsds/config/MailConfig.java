@@ -1,22 +1,14 @@
 package com.happy_hao.pdsds.config;
 
-import java.io.InputStream;
-import java.util.Properties;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
+@Data
+@Component
+@ConfigurationProperties(prefix = "config.mail")
 public class MailConfig {
 
-    public Integer getOvertime() {
-        try (InputStream input = MailConfig.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties properties = new Properties();
-            properties.load(input);
-            return Integer.valueOf(properties.getProperty("mail.overtime"));
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load overtime configuration", e);
-        }
-    }
+    private Integer overtime;
 
 }
