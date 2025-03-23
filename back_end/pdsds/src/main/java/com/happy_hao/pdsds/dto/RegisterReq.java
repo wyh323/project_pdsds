@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class PatientRegister {
+public class RegisterReq {
     @NotBlank(message = "用户名不能为空")
     @Pattern(regexp = "^[a-zA-Z0-9_]{5,20}$", message = "用户名必须是5-20位的字母、数字或下划线")
     private String username;

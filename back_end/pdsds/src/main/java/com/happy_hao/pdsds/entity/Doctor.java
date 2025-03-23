@@ -10,7 +10,7 @@ import lombok.NonNull;
 
 @NoArgsConstructor
 @Data
-public class Patient {
+public class Doctor {
     @NonNull
     private Integer id;// 主键ID
     private String username;// 用户名
@@ -23,7 +23,6 @@ public class Patient {
     @Email
     private String email;// 邮箱
     private String pic;// 头像地址
-    private int doctor_id;
-    private String doctor_nickname;
+    private String address;
     private String token;// JWT令牌
 }

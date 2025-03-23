@@ -1,31 +1,31 @@
 package com.happy_hao.pdsds.service.impl;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.HashMap;
-import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.happy_hao.pdsds.common.Result;
 import com.happy_hao.pdsds.config.MailConfig;
 import com.happy_hao.pdsds.dto.LoginReq;
 import com.happy_hao.pdsds.dto.RegisterReq;
 import com.happy_hao.pdsds.dto.UpdatePwdRequest;
+import com.happy_hao.pdsds.entity.Doctor;
 import com.happy_hao.pdsds.entity.Mail;
-import com.happy_hao.pdsds.entity.Patient;
 import com.happy_hao.pdsds.exception.ServiceException;
+import com.happy_hao.pdsds.mapper.DoctorMapper;
 import com.happy_hao.pdsds.mapper.MailMapper;
-import com.happy_hao.pdsds.mapper.PatientMapper;
-import com.happy_hao.pdsds.service.PatientService;
+import com.happy_hao.pdsds.service.DoctorService;
 import com.happy_hao.pdsds.utils.JwtUtil;
 import com.happy_hao.pdsds.utils.Md5Util;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
-public class PatientServiceImpl implements PatientService {
+public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
-    private PatientMapper patientMapper;
+    private DoctorMapper doctorMapper;
 
     @Autowired
     private MailMapper mailMapper;
@@ -42,8 +42,8 @@ public class PatientServiceImpl implements PatientService {
         String password = req.getPassword();
 
         // 查询病人是否存在
-        Patient p = patientMapper.findByUsername(username);
-        if (p != null) {
+        Doctor d = doctorMapper.findByUsername(username);
+        if (d != null) {
             // 占用
             throw new ServiceException("用户名已被注册");
         }
@@ -51,35 +51,35 @@ public class PatientServiceImpl implements PatientService {
         // 加密
         String mdString = Md5Util.getMD5String(password);
         // 添加
-        patientMapper.add(username, mdString);
+        doctorMapper.add(username, mdString);
     }
 
     @Override
-    public Patient login(LoginReq req) {
+    public Doctor login(LoginReq req) {
         String username = req.getUsername();
         String password = req.getPassword();
 
         // 查询病人是否存在
-        Patient p = patientMapper.findByUsername(username);
+        Doctor d = doctorMapper.findByUsername(username);
 
-        if (p == null) {
+        if (d == null) {
             // 没有占用
             // 登录失败
             throw new ServiceException("用户名或密码错误");
         }
 
         // 密码是否正确
-        if (!p.getPassword().equals(Md5Util.getMD5String(password))) {
+        if (!d.getPassword().equals(Md5Util.getMD5String(password))) {
             throw new ServiceException("用户名或密码错误");
         }
 
         // JWT令牌
         Map<String, Object> claims = new HashMap<>();
-        claims.put("username", p.getUsername());
+        claims.put("username", d.getUsername());
         String jString = jwtUtil.generateToken(claims);
-        p.setToken(jString);
+        d.setToken(jString);
 
-        return p;
+        return d;
     }
 
     @Override
@@ -90,9 +90,9 @@ public class PatientServiceImpl implements PatientService {
         String newPwd = updatePwdRequest.getNewPwd();
 
         // 账号存在校验
-        Patient p = patientMapper.findByUsername(username);
+        Doctor d = doctorMapper.findByUsername(username);
 
-        if (p == null) {
+        if (d == null) {
             // 没有占用
             // 登录失败
             throw new ServiceException("用户名错误");
@@ -109,7 +109,7 @@ public class PatientServiceImpl implements PatientService {
         }
 
         // 修改密码
-        patientMapper.updatePwdByUserName(username, Md5Util.getMD5String(newPwd));
+        doctorMapper.updatePwdByUserName(username, Md5Util.getMD5String(newPwd));
 
         // 将验证码过期
         mailMapper.updateCreateTimeByToken(token, Instant.EPOCH.atZone(ZoneId.systemDefault()).toLocalDateTime());

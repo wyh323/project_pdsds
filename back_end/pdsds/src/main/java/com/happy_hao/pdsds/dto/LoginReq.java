@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class PatientLogin {
+public class LoginReq {
     @NotBlank(message = "The username cannot be empty.")
     @Pattern(regexp = "^[a-zA-Z0-9_]{5,20}$", message = "The username must consist of 5 to 20 letters, digits or underscores.")
     private String username;
