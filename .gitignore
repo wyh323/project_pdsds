@@ -31,6 +31,9 @@ build/
 ### VS Code ###
 .vscode/
 
-###spring boot###
+### spring boot ###
 **/*.properties
 **/*.yml
+
+### wechat ###
+**/*.config.json
