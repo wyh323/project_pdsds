@@ -3,13 +3,16 @@ package com.happy_hao.pdsds.service.impl;
 import com.happy_hao.pdsds.common.Result;
 import com.happy_hao.pdsds.config.MailConfig;
 import com.happy_hao.pdsds.entity.Mail;
-import com.happy_hao.pdsds.entity.Patient;
+import com.happy_hao.pdsds.entity.User;
 import com.happy_hao.pdsds.exception.ServiceException;
+import com.happy_hao.pdsds.mapper.DoctorMapper;
 import com.happy_hao.pdsds.mapper.MailMapper;
 import com.happy_hao.pdsds.mapper.PatientMapper;
-import com.happy_hao.pdsds.service.EmailService;
+import com.happy_hao.pdsds.mapper.UserMapper;
+import com.happy_hao.pdsds.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -19,10 +22,10 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 @Service
-public class MailServiceImpl implements EmailService {
+public class MailServiceImpl implements MailService {
 
     @Autowired
-    private PatientMapper patientMapper;
+    private ApplicationContext applicationContext;
 
     @Autowired
     private MailConfig mailConfig;
@@ -37,18 +40,26 @@ public class MailServiceImpl implements EmailService {
     private String mailUserName;
 
     @Override
-    public Result getCode(String username, String email) {
-        // 账号存在校验
-        Patient p = patientMapper.findByUsername(username);
+    public Result getCode(String username, String email, String identity) {
+        // 根据用户类型选择对应的 UserMapper 实现
+        UserMapper<? extends User> userMapper;
+        if ("doctor".equals(identity)) {
+            userMapper = applicationContext.getBean(DoctorMapper.class);
+        } else {
+            userMapper = applicationContext.getBean(PatientMapper.class);
+        }
 
-        if (p == null) {
+        // 查询用户是否存在
+        User user = userMapper.findByUsername(username);
+
+        if (user == null) {
             // 没有占用
             // 登录失败
             throw new ServiceException("用户名不存在");
         }
 
         // 邮箱是否正确
-        if (!p.getEmail().equals(email)) {
+        if (!user.getEmail().equals(email)) {
             throw new ServiceException("邮箱不一致");
         }
         // 检查是否已存在验证码

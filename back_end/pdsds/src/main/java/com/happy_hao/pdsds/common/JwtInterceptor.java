@@ -1,5 +1,6 @@
 package com.happy_hao.pdsds.common;
 
+import com.happy_hao.pdsds.entity.User;
 import com.happy_hao.pdsds.exception.ServiceException;
 import com.happy_hao.pdsds.mapper.DoctorMapper;
 import com.happy_hao.pdsds.mapper.PatientMapper;
@@ -50,7 +51,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         String identity = (String) claims.get("identity");
 
         // 根据用户类型选择对应的 UserMapper 实现
-        UserMapper<?> userMapper;
+        UserMapper<? extends User> userMapper;
         if ("doctor".equals(identity)) {
             userMapper = applicationContext.getBean(DoctorMapper.class);
         } else if ("patient".equals(identity)) {
@@ -60,7 +61,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         }
 
         // 查询用户是否存在
-        Object user = userMapper.findByUsername(username);
+        User user = userMapper.findByUsername(username);
         if (user == null) {
             throw new ServiceException("401", "请登录3");
         }
